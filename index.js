@@ -8,7 +8,14 @@ export const store = makeStore();
 startServer(store);
 
 store.dispatch({
-    type: 'SET_ENTRIES',
-    entries: require('./entries.json')
+    type: 'SET_EVENTS',
+    events: require('./events.json')
 });
-store.dispatch({type: 'NEXT'});
+store.dispatch({type: 'ADD_EVENT',
+    event:{
+        id:3,
+        name:'flanki',
+        firstName:'Bolek',
+        lastName:'Magda',
+        email:'bolek@magda.pl'
+}});
