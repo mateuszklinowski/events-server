@@ -10,14 +10,12 @@ import reducer from '../src/reducer';
 describe('reducer', ()=>{
 
     const testEvent1 = {
-        "id":0,
         "name":"Spacer",
         "firstName":"Jan",
         "lastName":"Kowalski",
         "email":"jan@kowalski.pl"
     };
     const testEvent2 =  {
-        "id":1,
         "name":"Mecz",
         "firstName":"Ola",
         "lastName":"Nowak",
