@@ -1,9 +1,9 @@
 /**
  * Created by Klinek on 14.04.2018.
  */
-import {List, Map} from 'immutable'
+import {List, Map,fromJS} from 'immutable'
 
-export const INITIAL_STATE = Map();
+export const INITIAL_STATE = fromJS({events:[],messages:[]});
 
 export function setEvents(state, events) {
     events = events.map(event=>Map(event));

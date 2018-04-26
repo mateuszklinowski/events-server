@@ -3,37 +3,17 @@
  */
 import makeStore from './src/store';
 import startServers from './src/server';
+import mongoConfig from './mongodb.config';
 
-export const store = makeStore();
-startServers(store);
+import {MongoClient,connString} from './src/mongo';
+const store = makeStore();
 
-store.dispatch({
-    type:'SET_STATE',
-    state:{
-        events:[
-            {
-                id:0,
-                name:'eventName',
-                firstName:'Ola',
-                lastName:'nowak',
-                email:'ela@owa.pl',
-                date:1525039200000
-            },
-            {
-                id:1,
-                name:'eventName',
-                firstName:'Ola',
-                lastName:'nowak',
-                email:'ela@owa.pl',
-                date:1525039200000
-            }],
-        messages:[],
-        form:{
-            name:'',
-            firstName:'',
-            lastName:'',
-            email:'',
-            date:''
-        }
+MongoClient.connect(connString,(err,database)=>{
+    if(err){
+        throw err;
     }
+
+    let eventsDb = database.db(mongoConfig.dbName);
+    startServers(store,eventsDb);
 });
+
