@@ -21,7 +21,7 @@ describe('store', () => {
 
     it('is a Redux store configured with the correct reducer', () => {
         const store = makeStore();
-        expect(store.getState()).to.equal(Map());
+        expect(store.getState()).to.equal(fromJS({events:[]}));
 
         store.dispatch({
             type: 'SET_EVENTS',
