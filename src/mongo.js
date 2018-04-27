@@ -1,12 +1,12 @@
-import mongoConfig from './../mongodb.config';
+import serverConfig from '../server.config';
 import mongodb from 'mongodb';
 
 const conn = ()=>{
     let userPass="";
-    if(mongoConfig.username && mongoConfig.password){
-        userPass = mongoConfig.username+":"+mongoConfig.password+"@";
+    if(serverConfig.mongodb.username && serverConfig.mongodb.password){
+        userPass = serverConfig.mongodb.username+":"+serverConfig.mongodb.password+"@";
     }
-    return "mongodb://"+userPass+mongoConfig.host+":"+mongoConfig.port;
+    return "mongodb://"+userPass+serverConfig.mongodb.host+":"+serverConfig.mongodb.port;
 };
 export const connString = conn();
 export const MongoClient = mongodb.MongoClient;

@@ -1,0 +1,12 @@
+{
+  "mongodb":{
+    "username": "",
+    "password": "",
+    "host": "localhost",
+    "port": "27017",
+    "database":"eventsDB"
+  },
+  "socketio":{
+    "port":8090
+  }
+}

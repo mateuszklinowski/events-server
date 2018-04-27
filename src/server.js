@@ -2,6 +2,7 @@
  * Created by Klinek on 15.04.2018.
  */
 import Server from 'socket.io';
+import serverConfig from './../server.config'
 
 export default function startServers(store,db) {
 
@@ -15,7 +16,7 @@ export default function startServers(store,db) {
         });
     });
 
-    const io = new Server().attach(8090);
+    const io = new Server().attach(serverConfig.socketio.port);
     store.subscribe(
         () => {
             io.emit('state', store.getState().toJS());
