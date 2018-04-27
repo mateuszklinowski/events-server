@@ -1,4 +1,4 @@
-import {setEvents, addEvent, INITIAL_STATE} from './core';
+import {setEvents, addEvent, addEventToDb, INITIAL_STATE} from './core';
 
 export default function reducer(state = INITIAL_STATE, action) {
     switch (action.type) {
@@ -9,7 +9,12 @@ export default function reducer(state = INITIAL_STATE, action) {
             return setEvents(state, action.events);
 
         case 'ADD_EVENT':
-            return addEvent(state,action.event);
+            if(action.meta && action.meta.remote){
+                return addEventToDb(state,action.event);
+            } else if (action.meta && action.meta.db){
+                return addEvent(state,action.event);
+            }
+            return state;
     }
     return state;
 }

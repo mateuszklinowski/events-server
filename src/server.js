@@ -4,14 +4,15 @@
 import Server from 'socket.io';
 
 export default function startServers(store,db) {
-
-    db.collection("test").find({}).toArray((err,response)=>{
-        if(err) throw err;
-        console.log(response);
-    });
-
-    db.listCollections().toArray(function(err, collInfos) {
-        console.log(collInfos);
+    console.log('db created');
+    db.collection("events").find({}).toArray((err,result)=>{
+        if (err) throw err;
+        store.dispatch({
+            type:'SET_STATE',
+            state:{
+                events:result
+            }
+        });
     });
 
     const io = new Server().attach(8090);
