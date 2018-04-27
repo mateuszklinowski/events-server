@@ -4,7 +4,7 @@
 import Server from 'socket.io';
 
 export default function startServers(store,db) {
-    console.log('db created');
+
     db.collection("events").find({}).toArray((err,result)=>{
         if (err) throw err;
         store.dispatch({

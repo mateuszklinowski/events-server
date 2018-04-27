@@ -1,8 +1,8 @@
 /**
  * Created by Klinek on 14.04.2018.
  */
-import {MongoClient,connString} from './../src/mongo';
 import {List, Map,fromJS} from 'immutable'
+import {validateEvent} from './validator'
 
 export const INITIAL_STATE = fromJS({events:[]});
 
@@ -10,31 +10,32 @@ export function setEvents(state, events) {
     events = events.map(event=>Map(event));
     return state.set('events', List(events));
 }
+
 export function addEvent(state,event){
     return state.update('events',events => events.push(event));
 }
 
-export function addEventToDb(state,event){
-    MongoClient.connect(connString,(err,database)=>{
-        if(err){
-            throw err;
-        }
-        let db = database.db("eventsDB");
+/*mongodb addEvent*/
+export const mongoMiddleware = db => store => next => action => {
+    if(action.meta && action.meta.remote){
 
-        /*TODO its not store*/
-        db.collection("events").insertOne(event,(err,response)=>{
+        let validation = validateEvent(action.event);
+        if(!validation.valid){
+            console.log(action.meta.socketId);
+            /*TODO improve and send error msg just to specific socket.io client by ID*/
+            return;
+        }
+
+        db.collection("events").insertOne(action.event,(err,response)=>{
             if(err) throw err;
-            console.log('insert response:');
-            console.log(response);
-            event._id = response.insertedId;
-            state.dispatch({
+            let event = response.ops[0];
+            store.dispatch({
                 type:"ADD_EVENT",
-                event:event,
-                meta:{
-                    db:true
-                }
+                event
             })
-        })
-    });
-    return state;
-}
+        });
+        return;
+    }
+    return next(action);
+};
+
