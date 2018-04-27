@@ -1,16 +1,18 @@
 [
   {
-    "id":0,
+    "_id":0,
     "name":"Spacer",
     "firstName":"Jan",
     "lastName":"Kowalski",
-    "email":"jan@kowalski.pl"
+    "email":"jan@kowalski.pl",
+    "date":1525039200000
   },
   {
-    "id":1,
+    "_id":1,
     "name":"Mecz",
     "firstName":"Ola",
     "lastName":"Nowak",
-    "email":"ola@nowak.pl"
+    "email":"ola@nowak.pl",
+    "date":1525039200000
   }
 ]
