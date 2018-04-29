@@ -6,7 +6,12 @@ const conn = ()=>{
     if(serverConfig.mongodb.username && serverConfig.mongodb.password){
         userPass = serverConfig.mongodb.username+":"+serverConfig.mongodb.password+"@";
     }
-    return "mongodb://"+userPass+serverConfig.mongodb.host+":"+serverConfig.mongodb.port;
+    let databaseName = "";
+    if(serverConfig.mongodb.database){
+        databaseName = "/"+serverConfig.mongodb.database;
+    }
+
+    return "mongodb://"+userPass+serverConfig.mongodb.host+":"+serverConfig.mongodb.port+databaseName;
 };
 export const connString = conn();
 export const MongoClient = mongodb.MongoClient;
