@@ -32,6 +32,16 @@ describe('reducer', ()=>{
         }))
     });
 
+    it('handles ADD_EVENTS', ()=>{
+        const initialState = fromJS({events:[]});
+        const action = {type: 'ADD_EVENT', event: testEvent2};
+        const nextState = reducer(initialState,action);
+
+        expect(nextState).to.equal(fromJS({
+            events: [testEvent2]
+        }))
+    });
+
     it('has an initial state', () => {
         const action = {type: 'SET_EVENTS', events: [testEvent1]};
         const nextState = reducer(undefined, action);
@@ -42,7 +52,8 @@ describe('reducer', ()=>{
 
     it('can be used with reduce', () => {
         const actions = [
-            {type: 'SET_EVENTS', events: [testEvent1, testEvent2]},
+            {type: 'SET_EVENTS', events: [testEvent1]},
+            {type: 'ADD_EVENT', event: testEvent2},
         ];
         const finalState = actions.reduce(reducer,undefined);
 

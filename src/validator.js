@@ -1,6 +1,6 @@
 export const validateEvent = (event) =>{
 
-    let result = {valid:true,errors:[]};
+    let result = {errors:[],valid:true};
 
     if(!event){
         result.valid = false;
@@ -10,6 +10,12 @@ export const validateEvent = (event) =>{
         result.valid = false;
         result.errors.push("Missing fields")
     }
+
+    if(isNaN(event.date)){
+        result.valid = false;
+        result.errors.push("Wrong date!");
+    }
+
     if(Date.now() > event.date){
         result.valid = false;
         result.errors.push("Incorrect date")

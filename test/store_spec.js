@@ -19,7 +19,7 @@ describe('store', () => {
         "email":"ola@nowak.pl"
     };
 
-    it('is a Redux store configured with the correct reducer', () => {
+    it('Redux store configured with the correct reducer', () => {
         const store = makeStore();
         expect(store.getState()).to.equal(fromJS({events:[]}));
 

@@ -12,7 +12,7 @@ export function setEvents(state, events) {
 }
 
 export function addEvent(state,event){
-    return state.update('events',events => events.push(event));
+    return state.update('events',events => events.push(Map(event)));
 }
 
 /*mongodb addEvent*/
