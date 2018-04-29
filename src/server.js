@@ -8,6 +8,7 @@ export default function startServers(store,db) {
 
     db.collection("events").find({}).toArray((err,result)=>{
         if (err) throw err;
+        console.log(result);
         store.dispatch({
             type:'SET_STATE',
             state:{
@@ -17,6 +18,7 @@ export default function startServers(store,db) {
     });
 
     const io = new Server().attach(serverConfig.socketio.port);
+    console.log(io);
     store.subscribe(
         () => {
             io.emit('state', store.getState().toJS());
